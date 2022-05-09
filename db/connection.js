@@ -7,10 +7,10 @@ const connection = mysql.createConnection({
     // USERNAME > MYSQL USER NAME
     user: 'root',
     // PASSWORD > MYSQL PASSWORD - CHANGE LATER
-    password: 'B#nTuck#r1989',
+    password: 'password',
     database: 'employeetracker'
 },
     console.log('Connected to employeetracker database!')
 );
 
-module.exports = db;
+module.exports = connection;
