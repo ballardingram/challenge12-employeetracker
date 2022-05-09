@@ -1,7 +1,7 @@
 // EXTERNAL PACKAGES > RQUIRED FOR FUNCTIONALITY
 const express = require('express');
 const router = express.Router();
-const db = require('/../db/connection');
+const db = require('../../db/connection');
 
 // ROUTES > GET - ALL DEPARTMENTS
 // NOTE > DIRECTLY REFERENCING MODULE 12 'UDEVELOPIT' SYNTAX
@@ -19,7 +19,7 @@ router.get('/departments', (req, res) => {
     });
 });
 
-// ROUTES > SINGLE DEPARTMENT
+// ROUTES > GET - SINGLE DEPARTMENT
 // NOTE > SAME SYNTAX RATIONAL AS ABOVE
 router.get('/departments/:id', (req, res) => {
     const sql = `SELECT * FROM departments WHERE id = ?`;
@@ -36,7 +36,7 @@ router.get('/departments/:id', (req, res) => {
     });
 });
 
-// ROUTES > DELETE DETE DEPARTMENT
+// ROUTES > DELETE - SINGLE DEPARTMENT
 // NOTE > SAME SYNTAX RATIONAL AS ABOVE
 router.delete('/departments/:id', (req, res) => {
     const sql =  `DELETE FROM departments WHERE id =?`;
