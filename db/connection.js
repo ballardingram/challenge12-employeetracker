@@ -7,6 +7,7 @@ const connection = mysql.createConnection({
     // USERNAME > MYSQL USER NAME
     user: 'root',
     // PASSWORD > MYSQL PASSWORD - CHANGE LATER
+    // DOCUMENTATION > HOW TO CHANGE MYSQL PASSWORD (https://www.cyberciti.biz/faq/mysql-change-user-password/)
     password: 'password',
     database: 'employeetracker'
 },
