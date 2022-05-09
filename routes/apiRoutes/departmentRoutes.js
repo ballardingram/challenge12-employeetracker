@@ -31,7 +31,7 @@ router.get('/departments/:id', (req, res) => {
         }
         res.json({
             message: 'Your GET request for a SINGLE Department was successful.',
-            data: rows
+            data: row
         });
     });
 });
@@ -48,7 +48,7 @@ router.delete('/departments/:id', (req, res) => {
         }
         res.json({
             message: 'Your DELETE request for a SINGLE Department was successful.',
-            data: rows
+            data: row
         });
     });
 });

@@ -30,7 +30,7 @@ router.get('/roles/:id', (req, res) => {
         }
         res.json({
             message: 'Your GET request for a SINGLE Role was successful.',
-            data: rows
+            data: row
         });
     });
 });
