@@ -8,13 +8,13 @@ VALUES
 -- SEEDS > ROLE
 INSERT INTO roles (title, salary, department_id)
 VALUES
-('VP of Human Resources', '100000.00', 1),
-('AVP of Human Resources', '80000.00', 1),
-('Recruiter', '45000.00', 1),
-('Head of Legal', '250000.00', 2),
-('Legal Consultant', '100000.00', 2),
-('EVP of Distribution', '175000.00', 3),
-('Director of Customer Service', '125000.00', 3);
+('VP of Human Resources', '10000000', 1),
+('AVP of Human Resources', '8000000', 1),
+('Recruiter', '4500000', 1),
+('Head of Legal', '25000000', 2),
+('Legal Consultant', '10000000', 2),
+('EVP of Distribution', '17500000', 3),
+('Director of Customer Service', '12500000', 3);
 
 -- SEEDS > EMPLOYEE
 INSERT INTO employee (first_name, last_name, role_id, manager_id )

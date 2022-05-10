@@ -6,7 +6,7 @@ const db = require('../../db/connection');
 // ROUTES > GET - ALL DEPARTMENTS
 // NOTE > DIRECTLY REFERENCING MODULE 12 'UDEVELOPIT' SYNTAX
 router.get('/departments', (req, res) => {
-    const sql = `SELECT * FROM departments`;
+    const sql = `SELECT * FROM department`;
     db.query (sql, (err,rows) => {
         if (err) {
             res.status(500).json({error: err.message});
@@ -39,7 +39,7 @@ router.get('/departments/:id', (req, res) => {
 // ROUTES > DELETE - SINGLE DEPARTMENT
 // NOTE > SAME SYNTAX RATIONAL AS ABOVE
 router.delete('/departments/:id', (req, res) => {
-    const sql =  `DELETE FROM departments WHERE id =?`;
+    const sql =  `DELETE FROM department WHERE id =?`;
     const params = [req.params.id];
     db.query(sql, (err,rows) => {
         if (err) {
