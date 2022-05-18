@@ -22,16 +22,17 @@ router.get('/departments', (req, res) => {
 // ROUTES > GET - SINGLE DEPARTMENT
 // NOTE > SAME SYNTAX RATIONAL AS ABOVE
 router.get('/departments/:id', (req, res) => {
-    const sql = `SELECT * FROM departments WHERE id = ?`;
+    const sql = `SELECT * FROM department WHERE id = ?`;
     const params = [req.params.id];
-    db.query(sql, (err,rows) => {
+
+    db.query(sql, params, (err, rows) => {
         if (err) {
             res.status(400).json({error: err.message});
             return;
         }
         res.json({
             message: 'Your GET request for a SINGLE Department was successful.',
-            data: row
+            data: rows
         });
     });
 });
@@ -41,14 +42,14 @@ router.get('/departments/:id', (req, res) => {
 router.delete('/departments/:id', (req, res) => {
     const sql =  `DELETE FROM department WHERE id =?`;
     const params = [req.params.id];
-    db.query(sql, (err,rows) => {
+    db.query(sql, params, (err,rows) => {
         if (err) {
             res.status(500).json({error: err.message});
             return;
         }
         res.json({
             message: 'Your DELETE request for a SINGLE Department was successful.',
-            data: row
+            data: rows
         });
     });
 });
