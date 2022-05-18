@@ -35,7 +35,7 @@ SELECT department_id, department.name FROM department ORDERED BY department.id;
 SELECT department.name AS department, employee.id, employee.first_name, employee.last_name, roles.title
 FROM employee
 LEFT JOIN department ON (department.id = roles.department_id)
-LEFT JOIN roles ON (role.id = employee.roles_id)
+LEFT JOIN roles ON (roles.id = employee.roles_id)
 ORDER BY department.name;
 
 -- SEEDS > MYSQL FUNCTIONS - ROLE - JOIN FUNCTIONS

@@ -6,25 +6,37 @@ const inquirer = require('inquirer');
 const fs = require('fs');
 const util = require('util');
 
-
+// ROUTES > API ROUTES NEEDED
+const departmentRoute = require("./routes/apiRoutes/departmentRoutes");
+const employeeRoute = require ("./routes/apiRoutes/employeeRoutes");
+const roleRoute = require ("./routes/apiRoutes/roleRoutes");
+const routeIndex = require ("./routes/apiRoutes/index");
 
 // PROMPTS > TRACKER QUESTIONS - MAIN MENU
 // DOCUMENTATION > ASYNC AND AWAIT (https://www.npmjs.com/package/inquirer#methods)
-const groupQuestions = async () => {
-    const answers = await inquirer
+// DOCUMENTATION > SWITCH CASE (https://www.w3schools.com/java/java_switch.asp)
+const mainMenu = async () => {
+    await inquirer
     .prompt ([
         {
             type: 'list',
-            name: 'menu',
+            name: 'mainmenu',
             message: 'Choose an option to start:',
-            choices: ['View All Departments', 'View All Roles', 'View All Employees', 'Add Department', 'Add Role', 'Add Employee', 'Update Employee']
+            choices: ['View All Departments', 'View All Roles', 'View All Employees', 'Add Department', 'Add Role', 'Add Employee', 'Update Employee Role']
+        },
+    ])
+    .then((answer) => {
+        switch (answer.action) {
+            case 'View All Departments':
+                departmentRoute.displayAll(mainMenu);
+                break;
         }
-    ]);
+    });
 };
 
 //FUNCTION > INITIALIZE PROGRAM
 function init() {
-    inquirer.prompt(groupQuestions)
+    inquirer.prompt(mainMenu)
     console.log(data)
 }
 
