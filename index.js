@@ -4,7 +4,7 @@
 // DOCUMENTATION > FS (https://nodejs.dev/learn/the-nodejs-fs-module)
 const inquirer = require('inquirer');
 const db = require('./db/connection');
-require('console.table');
+require("console.table");
 
 // PROMPTS > TRACKER QUESTIONS - MAIN MENU
 // DOCUMENTATION > ASYNC AND AWAIT (https://www.npmjs.com/package/inquirer#methods)
@@ -81,8 +81,51 @@ function mainMenu() {
                 updateEmployeeRole();
                 break;
             default:
-                quit();
+                Quit();
         }
     });
 }
 
+// FUNCTIONS > FUNCTION TO ACCESS DATABASE AND RETURN RESULTS
+// FUNCTION > VIEW DEPARTMENTS
+function viewDepartments() {
+    db.query("SELECT * FROM department", (err, result) => {
+        if (err) {
+            throw err;
+        }
+        console.table(result);
+        mainMenu();
+    });
+}
+
+// FUNCTION > VIEW ROLES
+function viewRoles() {
+    db.query("SELECT * FROM roles", (err, result) => {
+        if (err) {
+            throw err;
+        }
+        console.table(result);
+        mainMenu();
+    });
+}
+
+// FUNCTION > VIEW EMPLOYEES
+function viewEmployees() {
+    db.query("SELECT * FROM employees", (err, result) => {
+        if (err) {
+            throw err;
+        }
+        console.table(result);
+        mainMenu();
+    });
+}
+
+// FUNCTION > INITIALIZE PROGRAM
+//function init () {
+//}
+
+// FUNCTION > END PROGRAM
+function Quit() {
+    console.log("Thank you for using the Employee Tracker. Goodbye.");
+    process.exit();
+}
