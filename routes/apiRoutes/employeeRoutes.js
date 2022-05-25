@@ -5,18 +5,10 @@ const db = require('../../db/connection');
 
 // ROUTES > GET - ALL EMPLOYEES by LAST NAME
 router.get('/employees', (req, res) => {
-    const sql = `SELECT * FROM employees ORDER BY last_name`;
-    db.query(sql, (err,rows) => {
-        if (err) {
-            res.status(500).json ({ error: err.message });
-            return;
-        }
-        res.json ({
-            message: 'Your request to GET ALL Employees is successful. Tip: Sorted by Last Name.',
-            data: rows
-        });
-    });
-});
+    const sql = `SELECT employees.*, department.name
+                AS department_name
+                FROM employees`
+})
 
 // ROUTES > GET - SINGLE EMPLOYEE
 router.get('/employees/:id' , (req, res) => {
