@@ -56,8 +56,8 @@ function mainMenu() {
             ],
         },
     ])
-    .then((answer) => {
-        let choice = answer.choice;
+    .then((res) => {
+        let choice = res.dashboard;
         switch (choice) {
             case "VIEW_DEPARTMENTS":
                 viewDepartments();
@@ -104,14 +104,14 @@ function viewRoles() {
         if (err) {
             throw err;
         }
-        console.table(result['department_id', 'department_name']);
+        console.table(result);
         mainMenu();
     });
 }
 
 // FUNCTION > VIEW EMPLOYEES
 function viewEmployees() {
-    db.query("SELECT * FROM employees", (err, result) => {
+    db.query("SELECT * FROM employee", (err, result) => {
         if (err) {
             throw err;
         }
