@@ -81,7 +81,7 @@ function mainMenu() {
                 updateEmployeeRole();
                 break;
             default:
-                Quit();
+                quit();
         }
     });
 }
@@ -89,7 +89,7 @@ function mainMenu() {
 // FUNCTIONS > FUNCTION TO ACCESS DATABASE AND RETURN RESULTS
 // FUNCTION > VIEW DEPARTMENTS
 function viewDepartments() {
-    db.query("SELECT * FROM department", (err, result) => {
+    db.query("SELECT * FROM DEPARTMENT", (err, result) => {
         if (err) {
             throw err;
         }
@@ -104,7 +104,7 @@ function viewRoles() {
         if (err) {
             throw err;
         }
-        console.table(result);
+        console.table(result['department_id', 'department_name']);
         mainMenu();
     });
 }
@@ -120,12 +120,23 @@ function viewEmployees() {
     });
 }
 
+// FUNCTION > ADD DEPARTMENT
+function addDepartment() {
+    db.query("INSERT INTO DEPARTMENT, department_name VALUES (results)", (err, result) => {
+        if (err) {
+            throw err;
+        }
+        console.table(result);
+        mainMenu();
+    });
+}
+
 // FUNCTION > INITIALIZE PROGRAM
 //function init () {
 //}
 
 // FUNCTION > END PROGRAM
-function Quit() {
+function quit() {
     console.log("Thank you for using the Employee Tracker. Goodbye.");
     process.exit();
 }
