@@ -139,8 +139,63 @@ function addDepartment() {
     });
 }
 
-// FUNCTION > ADD ROLE
+// FUNCTION > ADD ROLE > INSERT INTO FUNCTION ONLY
+function addRole() {
+    const query = `
+    SELECT
+    department.id,
+    department.name,
+    roles.salary
+    FROM employee
+    JOIN roles
+    on employee.roles_id = roles.id
+    JOIN department
+    on department.id = roles.department_id
+    GROUP BY department.id, department.name`
 
+    db.query(query, (err, res) => {
+        if(err) throw err;
+        const department = res.map(({id, name}) => ({
+            value: id,
+            name: `${id} ${name}`
+        }));
+        console.table(res);
+        addRoleprompts(department);
+    });
+}
+
+// PROMPTS > ADD ROLE
+function addRoleprompts(department) {
+    inquirer
+    .prompt([
+        {
+            type: "input",
+            name: "title",
+            message: "What is the new role title?"
+        },
+        {
+            type: "input",
+            name: "salary",
+            message: "What is the new role salary?"
+        },
+        {
+            type: "list",
+            name: "department",
+            message: "Assign the role a department by selecting an option below:",
+            choices: department
+        },
+    ]).then((res) => {
+        let query = `INSERT INTO roles SET ?`;
+        db.query(query, {
+            title: res.title,
+            salary: res.salary,
+            department_id: res.department
+        }, (err, res) => {
+            if(err) throw err;
+            mainMenu();
+        });
+    });
+}
 
 // FUNCTION > END PROGRAM
 function quit() {
