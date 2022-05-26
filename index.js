@@ -190,11 +190,65 @@ function addRoleprompts(department) {
             title: res.title,
             salary: res.salary,
             department_id: res.department
-        }, (err, res) => {
+        }, (err) => {
             if(err) throw err;
             mainMenu();
         });
     });
+}
+
+// FUNCTION > ADD EMPLOYEE > INSERT INTO FUNCTION ONLY
+function addEmployee() {
+    const query = `
+    SELECT
+    roles.id,
+    roles.title,
+    roles.salary
+    FROM roles`
+
+    db.query(query, (err, res) => {
+        if(err) throw err;
+        const roles = res.map(({id, title, salary}) => ({
+            value: id,
+            title: `${title}`,
+            salary: `${salary}`
+        }));
+        console.table(res);
+        addEmployeeprompts(roles);
+    });
+}
+
+// PROMPTS > ADD EMPLOYEE
+function addEmployeeprompts(roles) {
+    inquirer
+    .prompt([
+        {
+            type: "input",
+            name: "first_name",
+            message: "What is the employee's first name?"
+        },
+        {
+            type: "input",
+            name: "last_name",
+            message: "What is the employee's last name?"
+        },
+        {
+            type: "list",
+            name: "roles_id",
+            message: "What is the employee's role?",
+            choices: roles
+        },
+    ]).then((res) => {
+        let query = `INSERT INTO employee SET ?`
+        db.query(query, {
+            first_name: res.first_name,
+            last_name: res.last_name,
+            roles_id: res.roles_id
+        }, (err) => {
+            if(err) throw err;
+            mainMenu();
+        })
+    })
 }
 
 // FUNCTION > END PROGRAM
