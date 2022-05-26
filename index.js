@@ -2,6 +2,7 @@
 // DOCUMENTATION > INQUIRER (https://www.npmjs.com/package/inquirer)
 // DOCUMENTATION > UTIL (https://www.npmjs.com/package/util)
 // DOCUMENTATION > FS (https://nodejs.dev/learn/the-nodejs-fs-module)
+const res = require('express/lib/response');
 const inquirer = require('inquirer');
 const db = require('./db/connection');
 require("console.table");
@@ -122,18 +123,24 @@ function viewEmployees() {
 
 // FUNCTION > ADD DEPARTMENT
 function addDepartment() {
-    db.query("INSERT INTO DEPARTMENT, department_name VALUES (results)", (err, result) => {
-        if (err) {
-            throw err;
+    inquirer
+    .prompt([
+        {
+            type: "input",
+            name: "department_name",
+            message: "What is the new department name?"
         }
-        console.table(result);
-        mainMenu();
+    ]).then((res) => {
+        let query = `INSERT INTO department SET ?`;
+        db.query(query, {name: res.department_name}, (err) => {
+            if (err) throw err;
+            mainMenu();
+        });
     });
 }
 
-// FUNCTION > INITIALIZE PROGRAM
-//function init () {
-//}
+// FUNCTION > ADD ROLE
+
 
 // FUNCTION > END PROGRAM
 function quit() {
