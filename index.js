@@ -251,6 +251,85 @@ function addEmployeeprompts(roles) {
     })
 }
 
+// FUNCTION > UPDATE EMPLOYEE > UPDATE FUNCTION ONLY
+function updateEmployeeRole() {
+    const query = `
+    SELECT
+    employee.id,
+    employee.first_name,
+    employee.last_name,
+    roles.title,
+    roles.salary,
+    department.name,
+    CONCAT(manager.first_name, manager.last_name)
+    AS manager
+    FROM employee
+    JOIN roles
+    ON employee.roles_id = roles.id
+    JOIN department
+    ON department.id = roles.department_id
+    JOIN employee manager
+    ON manager.id = employee.manager_id`
+
+    db.query(query,(err, res) => {
+        if(err) throw err;
+        const fte = res.map(({id, first_name, last_name}) => ({
+            value: id,
+            name: `${first_name} ${last_name}`
+        }));
+        console.table(res);
+        updateFTErole(fte);
+    });
+}
+
+function updateFTErole(fte) {
+    const query = `
+    SELECT
+    roles.id,
+    roles.title,
+    roles.salary
+    FROM roles`
+
+    db.query(query, (err, res) => {
+        if(err) throw err;
+        const newRole = res.map(({id, title, salary}) => ({
+            value: id,
+            title: `${title}`,
+            salary: `${salary}`
+        }));
+        console.table(res);
+        updateFTEprompts(fte, newRole);
+    });
+}
+
+// PROMPT > UPDATE EMPLOYEE
+function updateFTEprompts(fte, newRole) {
+    inquirer
+    .prompt([
+        {
+            type: "list",
+            name: "employee",
+            message: "To update an employee role, select an employee ID:",
+            choices: fte
+        },
+        {
+            type: "list",
+            name: "roles",
+            message: "Select a new role for the employee from the list below:",
+            choices: newRole
+        },
+    ]).then((res) => {
+        const query = `UPDATE employee SET roles_id = ? WHERE id = ?`
+        db.query(query,[
+            res.employee,
+            res.roles
+        ], (err) => {
+            if(err) throw err;
+            mainMenu();
+        });
+    });
+}
+
 // FUNCTION > END PROGRAM
 function quit() {
     console.log("Thank you for using the Employee Tracker. Goodbye.");
