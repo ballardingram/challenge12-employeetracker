@@ -28,7 +28,7 @@ VALUES
 ('Bo', 'Walling', 7, 6);
 
 -- SEEDS > MY SQL FUNCTIONS - ALL DEPARTMENTS
-SELECT department_id, department.name FROM department ORDERED BY department.id;
+SELECT department_id, department.name FROM department ORDER BY department_id;
 
 -- SEEDS > MYSQL FUNCTIONS - DEPARTMENT - JOIN FUNCTIONS
 -- DOCUMENTATION > JOIN (https://www.w3schools.com/mysql/mysql_join.asp)
